@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <div calss="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                        <i class="fa fa-align-justify"></i> Устройства
+                </div>
+                {% if current_user.username == 'admin' %}
+                    <div class="card-body">
+                            <a href="{{ url_for('add_device') }}"><button type="button" class="btn btn-block btn-success">Добавить устройство</button></a>
+                    </div>
+                {% endif %}
+                <div class="card-body">
+                    <table class="table table-responsive">
+                        <thead valign="top">
+                            <tr>
+                                <td class="text-center">ИД</td>
+                                <td class="text-center">Серийный номер</td>
+                                <td class="text-center">Тип устройства</td>
+                                <td class="text-center">Комментарий</td>
+                                <td class="text-center">Хешрейт</td>
+                                <td class="text-center">Статус</td>
+                                <td class="text-center">Подробная информация</td>
+                                {% if current_user.username == 'admin' %}
+                                    <td class="text-center">Редактировать устройство</td>
+                                {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for device in devices %}
+                                {% include '_device.html' %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <nav aria-label="Alerts Navigation">
+                            <ul class="pagination justify-content-end">
+                                {% if prev_url %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ prev_url }}">Предыдущая</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1">Предыдущая</a>
+                                    </li>
+                                {% endif %}
+                                {% if next_url %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ next_url }}">Следующая</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1">Следующая</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

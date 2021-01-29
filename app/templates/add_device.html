@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <div calss="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i>Добавление нового устройства
+                </div>
+                <div class="card-body">
+                    <h1>Добавление устройства</h1>
+                    <form action="" method="post">
+                        {{ form.hidden_tag() }}
+                        <p>
+                            {{ form.serial_num.label }}<br>
+                            {{ form.serial_num(size=100) }}<br>
+                            {% for error in form.serial_num.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </p>
+                         <p>
+                            {{ form.device_type.label }}<br>
+                            {{ form.device_type(size=260) }}<br>
+                            {% for error in form.device_type.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </p>
+                        <p>
+                            {{ form.addition.label }}<br>
+                            {{ form.device_type(cols=100, rows=6) }}<br>
+                            {% for error in form.addition.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </p>
+                        <p>{{ form.submit() }}</p>
+                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

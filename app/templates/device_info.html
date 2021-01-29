@@ -1,0 +1,702 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i>Информация об устройстве #{{ device.serial_num }}
+                </div>
+                <div class="card-body">
+                    <h4>Внутренний номер в системе: {{ device.id }}</h4>
+                    <h4>Серийный номер: {{ device.serial_num }}</h4>
+                    <h4>Тип устройства: {{ device.device_type }}</h4>
+                    <h4>Описание: {{ device.addition }}</h4>
+                </div>
+            </div>
+        </div> 
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+                <div class="card">
+                        <div class="card-header">
+                            <i class="fa fa-align-justify"></i>Графики #{{ device.serial_num }}
+                        </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class=" col-lg-3 col-md-3" onclick="scrollSlide('#big-temp-inside-chart')">
+                            <div class="card text-white bg-success">
+                                <div class="card-body pb-0">
+                                    <div class="btn-group float-right">
+                                        <button type="button"  class="btn btn-transparent  p-0" aria-expanded="false">
+                                        <i class="icon-settings"></i>
+                                        </button>
+                                    </div>
+                                    <h4 class="mb-0">{{ attribute.temp_inside }}</h4>
+                                    <p>Температура жидкости, °С</p>
+                                </div>
+                                <div class="chart-wrapper px-3" style="height:70px;">
+                                    <canvas id="temp-inside-chart" class="chart" height="70"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                    <div class=" col-lg-3 col-md-3" onclick="scrollSlide('#big-temp-outside-chart')">
+                        <div class="card text-white bg-success">
+                            <div class="card-body pb-0">
+                                <div class="btn-group float-right">
+                                    <button type="button"  class="btn btn-transparent  p-0" aria-expanded="false">
+                                    <i class="icon-settings"></i>
+                                    </button>
+                                </div>
+                                <h4 class="mb-0">{{ attribute.temp_outside_first }}</h4>
+                                <p>Температура воздуха, °С</p>
+                            </div>
+                            <div class="chart-wrapper px-3" style="height:70px;">
+                                <canvas id="temp-outside-chart" class="chart" height="70"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class=" col-lg-3 col-md-3" onclick="scrollSlide('#big-pressure-chart')">
+                        <div class="card text-white bg-success">
+                            <div class="card-body pb-0">
+                                <div class="btn-group float-right">
+                                    <button type="button"   class="btn btn-transparent  p-0" aria-expanded="false">
+                                    <i class="icon-settings"></i>
+                                    </button>
+                                </div>
+                                <h4 class="mb-0">{{ attribute.pressure }}</h4>
+                                <p>Давление, бар</p>
+                            </div>
+                            <div class="chart-wrapper px-3" style="height:70px;">
+                                <canvas id="pressure-chart" class="chart" height="70"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class=" col-lg-3 col-md-3" onclick="scrollSlide('#big-distance-chart')">
+                    <div class="card text-white bg-success">
+                        <div class="card-body pb-0">
+                            <div class="btn-group float-right">
+                                <button type="button"   class="btn btn-transparent  p-0" aria-expanded="false">
+                                <i class="icon-settings"></i>
+                                </button>
+                            </div>
+                            <h4 class="mb-0">{{ attribute.distance }}</h4>
+                            <p>Уровень жидкости</p>
+                        </div>
+                        <div class="chart-wrapper px-3" style="height:70px;">
+                            <canvas id="distance-chart" class="chart" height="70"></canvas>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <div class="card">
+                <div class="card-header">
+                <i class="fa fa-align-justify"></i>Показатели устройства #{{ device.serial_num }}
+                </div>
+                <div class="card-body">
+                <table class="table table-responsive-sm">
+                    <thead valign="top">
+                        <tr>
+                            <td>Датчик</td>
+                            <td>Значение</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr valign="top">
+                            <td>Температура жидкости, °С</td>
+                            <td>{{ attribute.temp_inside }}</td>
+                        </tr>
+                        <tr valign="top">
+                            <td>Зона испарения, °С</td>
+                            <td>{{ attribute.temp_outside_first }}</td>
+                        </tr>
+                        <tr valign="top">
+                            <td>Зона конденсации, °С</td>
+                            <td>{{ attribute.temp_outside_second }}</td>
+                        </tr>
+                        <tr valign="top">
+                            <td>Зона свободного борта, °С</td>
+                            <td>{{ attribute.temp_outside_third }}</td>
+                        </tr>
+                        <tr valign="top">
+                            <td>Уровень жидкости</td>
+                            <td>{{ attribute.distance }}</td>
+                        </tr>
+                        <tr valign="top">
+                            <td>Давление, бар</td>
+                            <td>{{ attribute.pressure }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a class="nav-link" href="{{ url_for('attribute', device_id=device.id) }}"><button type="button" class="btn btn-block btn-primary">Детальные показатели устройства</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+                    <div class="card">
+                <div class="card-header">
+                <i class="fa fa-align-justify"></i>Управление устройством #{{ device.serial_num }}
+                </div>
+                <div class="card-body">
+                    <p id="status_realy"></p>
+                    {% if device.relay1_state == 1 and device.relay2_state == 1 and device.relay3_state == 1 %}
+                        <a class="btn btn-block btn-danger" href="{{ url_for('change_device_status', device_id=device.id) }}">Выключить всё</a>
+                    {% else %}
+                        <a class="btn btn-block btn-success"  href="{{ url_for('change_device_status', device_id=device.id) }}">Включить всё</a>
+                    {% endif %}
+                    <table class="table table-responsive-sm">
+                        <thead>
+                            <th>Реле #</th>
+                            <th>Статус</th>
+                            <th>Мощность, кВт</th>
+                            <td>Действия</td>
+                        </thead>
+                        <tbody>
+                            <tr valign="top">
+                                <td>
+                                    1
+                                </td>
+                                <td>
+                                
+                                        {% if device.relay1_state %}
+                                            Включено
+                                        {% else %}
+                                            Выключено
+                                        {% endif %}
+                                   
+                                </td>
+                                <td>
+                                    {% if attribute.relay1_current is none %}
+                                        0
+                                    {% else %}
+                                        {{ attribute.relay1_current * 0.22 }}
+                                    {% endif %}
+                                </td>
+                                <td>
+   
+                                        {% if device.relay1_state %}
+                                            <a class="btn btn-block btn-danger" href="{{ url_for('change_device_relay_status', device_id=device.id, relay_id = 1) }}">Выключить</a>
+                                        {% else %}
+                                            <a class="btn btn-block btn-success"  href="{{ url_for('change_device_relay_status', device_id=device.id, relay_id = 1) }}">Включить</a>
+                                        {% endif %}
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td>
+                                    2
+                                </td>
+                                <td>
+                                
+                                        {% if device.relay2_state %}
+                                            Включено
+                                        {% else %}
+                                            Выключено
+                                        {% endif %}
+                                  
+                                </td>
+                                <td>
+                                    {% if attribute.relay2_current is none %}
+                                        0
+                                    {% else %}
+                                        {{ attribute.relay2_current * 0.22 }}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                 
+                                        {% if device.relay2_state %}
+                                            <a class="btn btn-block btn-danger" href="{{ url_for('change_device_relay_status', device_id=device.id, relay_id = 2) }}">Выключить</a>
+                                        {% else %}
+                                            <a class="btn btn-block btn-success"  href="{{ url_for('change_device_relay_status', device_id=device.id, relay_id = 2) }}">Включить</a>
+                                        {% endif %}
+                                 
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td>
+                                    3
+                                </td>
+                                <td>
+                                  
+                                        {% if device.relay3_state %}
+                                            Включено
+                                        {% else %}
+                                            Выключено
+                                        {% endif %}
+                                  
+                                </td>
+                                <td>
+                                    {% if attribute.relay3_current is none %}
+                                        0
+                                    {% else %}
+                                        {{ attribute.relay3_current * 0.22 }}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                  
+                                        {% if device.relay3_state %}
+                                            <a class="btn btn-block btn-danger" href="{{ url_for('change_device_relay_status', device_id=device.id, relay_id = 3) }}">Выключить</a>
+                                        {% else %}
+                                            <a class="btn btn-block btn-success"  href="{{ url_for('change_device_relay_status', device_id=device.id, relay_id = 3) }}">Включить</a>
+                                        {% endif %}
+                                 
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+                    <div class="card">
+                    <div class="card-header">
+                    <i class="fa fa-align-justify"></i>Хэш-рейт устройства #{{ device.serial_num }}
+                    </div>
+                    <div class="card-body">
+                    <table class="table table-responsive-sm">
+                        <thead valign="top">
+                            <tr>
+                                <td>Пул</td>
+                                <td>Значение</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr valign="top">
+                                <td>BTC.COM</td>
+                                <td>{{ attribute.hashrate_poolbtccom }}</td>
+                            </tr>
+                            <tr valign="top">
+                                <td>Antpool.com</td>
+                                <td>{{ attribute.hashrate_antpool }}</td>
+                            </tr>
+                            <tr valign="top">
+                                <td>ViaBTC.com</td>
+                                <td>{{ attribute.hashrate_viabtc }}</td>
+                            </tr>
+                            <tr valign="top">
+                                <td>F2Pool.com</td>
+                                <td>{{ attribute.hashrate_f2pool }}</td>
+                            </tr>
+                            <tr valign="top">
+                                <td>Slushpool.com</td>
+                                <td>{{ attribute.hashrate_slushpool }}</td>
+                            </tr>
+                            <tr valign="top">
+                                    <td>Всего</td>
+                                    <td>{{ attribute.hashrate_total }}</td>
+                                </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+        </div>
+        <!--
+        <div class="col-lg-6 col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i>Информация об устройстве #{{ device.serial_num }}
+                </div>
+                <div class="card-body">
+                <table class="table table-responsive-sm">
+                    <thead valign="top">
+                        <tr>
+                            <td class="text-center">№ ASIC</td>
+                            <td class="text-center">Хэш-рейт</td>
+                            <td class="text-center">Макс T чипов</td>
+                            <td class="text-center">Макс T платы</td>
+                            <td class="text-center">Средний хэш-рейт за период</td>
+                            <td class="text-center">Пул</td>
+                            <td class="text-center">Адрес</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr valign="top">
+                            <td class="text-center">1</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                        </tr>
+                        <tr valign="top">
+                            <td class="text-center">2</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                        </tr>
+                        <tr valign="top">
+                            <td class="text-center">3</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                        </tr>
+                        <tr valign="top">
+                            <td class="text-center">4</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                        </tr>
+                        <tr valign="top">
+                            <td class="text-center">5</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                        </tr>
+                        <tr valign="top">
+                            <td class="text-center">6</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                            <td class="text-center">N/A</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>-->
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <h4 class="card-title mb-0">Температура жидкости</h4>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="pull-right">
+                                    С: 
+                                    <input type='text' class="datetimepicker" id="inside-begin" value="2018/01/01">
+                                    По:
+                                    <input type='text' class="datetimepicker" id="inside-end" value="2019/01/01"/>
+                                    <br/><br/>
+                                    <button type="button" class="btn btn-block btn-primary" onclick="renderTempInside()">Обновить</button>
+                            </div>
+                         </div>
+                    </div>
+                    <div class="chart-wrapper" style="height:600px;margin-top:40px;">
+                        <canvas id="big-temp-inside-chart" class="chart" height="600"></canvas>
+                    </div>
+                </div>
+            </div>
+            <!--/.card-->
+        </div>
+
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <h4 class="card-title mb-0">Температура воздуха, °С</h4>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="pull-right">
+                                    С: 
+                                    <input type='text' class="datetimepicker" id="outside-begin" value="2018/01/01">
+                                    По:
+                                    <input type='text' class="datetimepicker" id="outside-end" value="2019/01/01"/>
+                                    <br/><br/>
+                                    <button type="button" class="btn btn-block btn-primary" onclick="renderTempOutside()">Обновить</button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper" style="height:600px;margin-top:40px;">
+                        <canvas id="big-temp-outside-chart" class="chart" height="600"></canvas>
+                    </div>
+                </div>
+            </div>
+            <!--/.card-->
+        </div>
+
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <h4 class="card-title mb-0">Давление</h4>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="pull-right">
+                                    С: 
+                                    <input type='text' class="datetimepicker" id="pressure-begin" value="2018/01/01">
+                                    По:
+                                    <input type='text' class="datetimepicker" id="pressure-end" value="2019/01/01"/>
+                                    <br/><br/>
+                                    <button type="button" class="btn btn-block btn-primary" onclick="renderPressure()">Обновить</button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper" style="height:600px;margin-top:40px;">
+                        <canvas id="big-pressure-chart" class="chart" height="600"></canvas>
+                    </div>
+                </div>
+            </div>
+            <!--/.card-->
+        </div>
+
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <h4 class="card-title mb-0">Уровень жидкости</h4>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="pull-right">
+                                    С: 
+                                    <input type='text' class="datetimepicker" id="distance-begin" value="2018/01/01">
+                                    По:
+                                    <input type='text' class="datetimepicker" id="distance-end" value="2019/01/01"/>
+                                    <br/><br/>
+                                    <button type="button" class="btn btn-block btn-primary" onclick="renderDistance()">Обновить</button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper" style="height:600px;margin-top:40px;">
+                        <canvas id="big-distance-chart" class="chart" height="600"></canvas>
+                    </div>
+                </div>
+            </div>
+            <!--/.card-->
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+                  
+
+function scrollSlide(anchor)
+{          
+    $('html, body').animate({
+            scrollTop: $(anchor).offset().top - 200
+        }, 500);
+}
+
+function renderBlock(url, canvas_id, param_name, chart_name, start_date = new Date("April 17, 1983 21:08:00"),
+    end_date = new Date("April 17, 2100 21:08:00"))
+{
+    $.get(url, function( data ) {
+        var values = {
+            labels: [],
+            datasets: [
+            {
+                label: chart_name,
+                borderColor: 'rgba(255,255,255,.55)',
+                data: [],
+            },
+            ]
+        };
+
+        data["json_list"].forEach(function(elem) {
+            values.labels.push(elem.timestamp);
+            values.datasets[0].data.push(elem[param_name]);
+            });
+
+        
+        var options = {
+            maintainAspectRatio: false,
+            legend: {
+            display: false
+            },
+            scales: {   
+            xAxes: [{
+                gridLines: {
+                color: 'transparent',
+                zeroLineColor: 'transparent'
+                },
+                ticks: {
+                fontSize: 2,
+                fontColor: 'transparent',
+                }
+
+            }],
+            yAxes: [{
+                display: false,
+                ticks: {
+                display: false,
+                min: Math.min.apply(Math, values.datasets[0].data) - 5,
+                max: Math.max.apply(Math, values.datasets[0].data) + 5,
+                }
+            }],
+            },
+            elements: {
+            line: {
+                tension: 0.00001,
+                borderWidth: 1
+            },
+            point: {
+                radius: 4,
+                hitRadius: 10,
+                hoverRadius: 4,
+            },
+            }
+        };
+        var  ctx = $("#"+canvas_id);
+        var tempInsideChart = new Chart(ctx, {
+            type: 'line',
+            data: values,
+            options: options
+        });
+    });
+}
+
+function renderBigBlock(url, canvas_id, param_name, chart_name, start_date_picker,
+    end_date_picker)
+{
+    $.get(url, function( data ) {
+        var values = {
+            labels: [],
+            datasets: []
+        };
+
+        start_date = moment($("#"+start_date_picker).val());
+        end_date = moment($("#"+end_date_picker).val());
+
+        for (i = 0; i < chart_name.length; i++)
+            values.datasets.push(
+                {
+                    label: chart_name[i],
+                    backgroundColor: 'rgba(255,0,0,.1)',
+                    borderColor: 'rgba(255,0,0,.55)',
+                    pointHoverBackgroundColor: '#fff',
+                    borderWidth: 2,
+                    data: [],
+                },
+            );
+
+
+
+        data["json_list"].forEach(function(elem) {
+            var dt = moment(elem.timestamp, "HH:mm:ss DD-MM-YYYY");
+            if (dt >= start_date && dt <= end_date)
+            {
+                values.labels.push(dt.format("MM-DD HH:mm"));
+                for (i = 0; i < param_name.length; i++)
+                    values.datasets[i].data.push(elem[param_name[i]]);
+            }
+        });
+
+        
+        var options = {
+            maintainAspectRatio: false,
+            legend: {
+            display: false
+            },
+            scales: {
+            xAxes: [{
+                gridLines: {
+                drawOnChartArea: true,
+                },
+                ticks: {
+                    autoSkip: true,
+                    maxTicksLimit: 10
+                }
+            }],
+            yAxes: [{
+                ticks: {
+                beginAtZero: true,
+                maxTicksLimit: 5,
+                autoSkip: true,
+                min: Math.min.apply(Math, values.datasets[0].data) - 20,
+                max: Math.max.apply(Math, values.datasets[0].data) + 20,
+                }
+            }]
+            },
+            elements: {
+            point: {
+                radius: 0,
+                hitRadius: 10,
+                hoverRadius: 4,
+                hoverBorderWidth: 3,
+            }
+            },
+        };
+        var  ctx = $("#"+canvas_id);
+        var tempInsideChart = new Chart(ctx, {
+            type: 'line',
+            data: values,
+            options: options
+        });
+    });
+}
+
+
+renderBlock("{{ url_for('attrs_json', device_id=device.id, count = 12) }}", "temp-inside-chart",  
+    "temp_inside", "Температура жидкости, °С");
+renderBlock("{{ url_for('attrs_json', device_id=device.id, count = 12) }}", "temp-outside-chart",  
+    "temp_outside_first", "Зона испарения, °С");
+renderBlock("{{ url_for('attrs_json', device_id=device.id, count = 12) }}", "pressure-chart",  
+    "pressure", "Давление, атм");
+renderBlock("{{ url_for('attrs_json', device_id=device.id, count = 12) }}", "distance-chart",  
+    "distance", "Уровень жидкости");
+
+function renderTempInside()
+{
+    renderBigBlock("{{ url_for('attrs_json', device_id=device.id, count = 120) }}", "big-temp-inside-chart",  
+        ["temp_inside",], ["Температура жидкости, °С",], "inside-begin", "inside-end");
+}
+
+function renderTempOutside()
+{
+    renderBigBlock("{{ url_for('attrs_json', device_id=device.id, count = 120) }}", "big-temp-outside-chart",  
+        ["temp_outside_first", "temp_outside_second", "temp_outside_third",], 
+        ["Зона испарения, °С", "Зона конденсации, °С", "Зона свободного борта, °С",], 
+        "outside-begin", "outside-end");
+}
+
+function renderPressure()
+{
+    renderBigBlock("{{ url_for('attrs_json', device_id=device.id, count = 120) }}", "big-pressure-chart",  
+        ["pressure",], ["Давление, бар",], "pressure-begin", "pressure-end");
+}
+
+function renderDistance()
+{
+    renderBigBlock("{{ url_for('attrs_json', device_id=device.id, count = 120) }}", "big-distance-chart",  
+        ["distance",], ["Уровень жидкости",], "distance-begin", "distance-end");
+}
+
+renderTempInside();
+renderTempOutside();
+renderPressure();
+renderDistance();
+
+$.datetimepicker.setLocale('ru');
+$(".datetimepicker").datetimepicker();
+
+
+
+
+</script>  
+{% endblock scripts %}

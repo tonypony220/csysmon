@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <div calss="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i>Редактирование устройста
+                </div>
+                <div class="card-body">
+								    <h1>Редактировать устройство</h1>
+								    <form action="" method="post">
+								        {{ form.hidden_tag() }}
+								        <p>
+								            {{ form.serial_num.label }}<br>
+								            {{ form.serial_num(size=64) }}<br>
+								            {% for error in form.serial_num.errors %}
+								            <span style="color: red;">[{{ error }}]</span>
+								            {% endfor %}
+								        </p>
+								        <p>
+								            {{ form.device_type.label }}<br>
+								            {{ form.device_type(size=200) }}<br>
+								            {% for error in form.device_type.errors %}
+								            <span style="color: red;">[{{ error }}]</span>
+								            {% endfor %}
+								        </p>
+								        <p>
+								            {{ form.addition.label }}<br>
+								            {{ form.addition(size=256) }}<br>
+								            {% for error in form.addition.errors %}
+								            <span style="color: red;">[{{ error }}]</span>
+								            {% endfor %}
+								        </p>
+										<h3>URL связанных устройств</h3>
+								        <p>
+								            {{ form.url_sensor_device.label }}<br>
+								            {{ form.url_sensor_device(size=128) }}<br>
+								            {% for error in form.url_sensor_device.errors %}
+								            <span style="color: red;">[{{ error }}]</span>
+								            {% endfor %}
+										</p>
+								        <p>
+								            {{ form.url_relay_device.label }}<br>
+								            {{ form.url_relay_device(size=128) }}<br>
+								            {% for error in form.url_relay_device.errors %}
+								            <span style="color: red;">[{{ error }}]</span>
+								            {% endfor %}
+										</p>										
+										<h3>Настройки пулов</h3>
+										<h4>POOL.BTC.COM</h4>
+								        <p>
+								            {{ form.apikey_poolbtccom.label }}<br>
+								            {{ form.apikey_poolbtccom(size=128) }}<br>
+								            {% for error in form.apikey_poolbtccom.errors %}
+								            <span style="color: red;">[{{ error }}]</span>
+								            {% endfor %}
+										</p>
+								        <p>
+											{{ form.puid_poolbtccom.label }}<br>
+											{{ form.puid_poolbtccom(size=128) }}<br>
+											{% for error in form.puid_poolbtccom.errors %}
+											<span style="color: red;">[{{ error }}]</span>
+											{% endfor %}
+										</p>
+										<h4>ANTPOOL.COM</h4>
+								        <p>
+								            {{ form.apikey_antpool.label }}<br>
+								            {{ form.apikey_antpool(size=128) }}<br>
+								            {% for error in form.apikey_antpool.errors %}
+								            <span style="color: red;">[{{ error }}]</span>
+								            {% endfor %}
+										</p>
+								        <p>
+											{{ form.secret_antpool.label }}<br>
+											{{ form.secret_antpool(size=128) }}<br>
+											{% for error in form.secret_antpool.errors %}
+											<span style="color: red;">[{{ error }}]</span>
+											{% endfor %}
+										</p>
+										<p>
+											{{ form.userid_antpool.label }}<br>
+											{{ form.userid_antpool(size=128) }}<br>
+											{% for error in form.userid_antpool.errors %}
+											<span style="color: red;">[{{ error }}]</span>
+											{% endfor %}
+										</p>
+										<p>
+											{{ form.coin_antpool.label }}<br>
+											{{ form.coin_antpool(size=128) }}<br>
+											{% for error in form.coin_antpool.errors %}
+											<span style="color: red;">[{{ error }}]</span>
+											{% endfor %}
+											</p>
+										<h4>VIABTC.COM</h4>
+								        <p>
+								            {{ form.apikey_viabtc.label }}<br>
+								            {{ form.apikey_viabtc(size=128) }}<br>
+								            {% for error in form.apikey_viabtc.errors %}
+								            <span style="color: red;">[{{ error }}]</span>
+								            {% endfor %}
+										</p>
+										<h4>F2POOL.COM</h4>
+								        <p>
+								            {{ form.apikey_f2pool.label }}<br>
+								            {{ form.apikey_f2pool(size=128) }}<br>
+								            {% for error in form.apikey_f2pool.errors %}
+								            <span style="color: red;">[{{ error }}]</span>
+								            {% endfor %}
+										</p>
+										<h4>SLUSHPOOL.COM</h4>
+								        <p>
+								            {{ form.apikey_slushpool.label }}<br>
+								            {{ form.apikey_slushpool(size=128) }}<br>
+								            {% for error in form.apikey_slushpool.errors %}
+								            <span style="color: red;">[{{ error }}]</span>
+								            {% endfor %}
+										</p>	
+								        <p>
+												{{ form.worker_slushpool.label }}<br>
+												{{ form.worker_slushpool(size=128) }}<br>
+												{% for error in form.worker_slushpool.errors %}
+												<span style="color: red;">[{{ error }}]</span>
+												{% endfor %}
+											</p>										
+								        <p>{{ form.submit() }}</p>
+								        <!--<p><h1>Функционал редактирования недоступен для пользователя</h1></p>-->
+								    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

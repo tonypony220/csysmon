@@ -1,0 +1,37 @@
+{% extends 'base_login.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+    <style>
+        body {
+            background: #000 url("static/images/back.jpg"); /* Фоновый цвет и фоновый рисунок*/
+            background-attachment: fixed; /* Фон страницы фиксируется */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: #fff; /*Цвет текста на странице*/
+            height: 100%;
+        }
+    </style>
+
+    <div class="row">
+        <br><br><br><br><br><br><br>
+        <div class="col-md-4"></div>
+        <div class="col-md-4" align="center">
+            <img src="/static/images/file.png" alt="Логотип компании">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6" align="center">
+            <h1>Вход в личный кабинет</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4" align="center">
+            {{ wtf.quick_form(form) }}
+        </div>
+    </div>
+{% endblock %}

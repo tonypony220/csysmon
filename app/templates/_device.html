@@ -1,0 +1,24 @@
+<tr valign="top">
+    <td class="text-center">{{ device.id }}</td>
+    <td class="text-center">{{ device.serial_num }}</td>
+    <td class="text-center">{{ device.device_type }}</td>
+    <td class="text-center">{{ device.addition }}</td>
+    <td class="text-center">{{ device.hash_rate }}</td>
+    {% if current_user.username == 'admin' %}
+        {% if device.status == True %}
+            <td class="text-center"><a class="nav-link" href="{{ url_for('change_device_status', device_id=device.id) }}"><button type="button" class="btn btn-block btn-danger">Выключить</button></a></td>
+        {% else %}
+            <td class="text-center"><a class="nav-link" href="{{ url_for('change_device_status', device_id=device.id) }}"><button type="button" class="btn btn-block btn-success">Включить</button></a></td>
+        {% endif %}
+    {% else %}
+        {% if device.status == True %}
+            <td class="text-center"><span class="badge badge-success">Устройство включено</span></td>
+        {% else %}
+            <td class="text-center"><span class="badge badge-danger">Устройство отключено</span></td>
+        {% endif %}
+    {% endif %}
+    <td class="text-center"><a class="nav-link" href="{{ url_for('device_info', device_id=device.id) }}"><button type="button" class="btn btn-block btn-primary">Подробнее</button></a></td>
+    {% if current_user.username == 'admin' %}
+            <td class="text-center"><a class="nav-link" href="{{ url_for('edit_device', device_id=device.id) }}"><button type="button" class="btn btn-block btn-secondary">Редактировать устройство</button></a></td>
+    {% endif %}
+</tr>

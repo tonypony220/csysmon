@@ -3,6 +3,18 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+app.db
+.idea
+CSysMon
+bin/
+logs
+migrations
+mysql-community-release-el7-5.noarch.rpm
+nohup.out
+pip-selfcheck.json
+pyvenv.cfg
+.DS_Store
+
 # C extensions
 *.so
 

@@ -1,0 +1,12 @@
+<tr valign="top">
+    <td class="text-center">{{ user.id }}</td>
+    <td class="text-center">{{ user.username }}</td>
+    <td class="text-center">{{ user.name }}</td>
+    <td class="text-center">{{ user.email }}</td>
+    <td class="text-center">{{ user.phone_num }}</td>
+    {% if user == current_user %}
+        <td class="text-center"><a class="nav-link" href="{{ url_for('user', username=user.username) }}"><button type="button" class="btn btn-block btn-success">Просмотреть</button></a></td>
+    {% else %}
+        <td class="text-center"><a class="nav-link" href="{{ url_for('disallow') }}"><button type="button" class="btn btn-block btn-danger">Просмотреть</button></a></td>
+    {% endif %}
+</tr>
