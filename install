@@ -1,0 +1,20 @@
+#!/bin/sh
+
+python -m pip install --upgrade pip
+
+pip install flask
+pip install alembic
+pip install flask-wtf
+pip install flask-sqlalchemy
+pip install flask-migrate
+pip install flask_login
+pip install flask-bootstrap
+pip install flask_mail
+pip install requests
+pip install email_validator
+flask db init
+flask db migrate -m "new"
+flask db upgrade
+pip install gunicorn
+
+python init_adm_usr.py
