@@ -722,7 +722,7 @@ def device_info(device_id):
 #        rel2 = "1"
 #    else:
 #        rel2 = "0"
-#    if (device.relay3_state == True):
+#    if (evice.relay3_state == True):
 #        rel3 = "1"
 #    else:
 #        rel3 = "0"
